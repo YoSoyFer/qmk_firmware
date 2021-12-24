@@ -26,24 +26,32 @@ enum layer_names {
 
 #define LOCK_OS LGUI(KC_L)
 
+enum {
+  TD_SHIFT_CAPS = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Qwerty 0
-   * ,-----------------------------------------+         +-----------------------------------------.
-   * | Esc  |   Q  |   W  |   E  |   R  |   T  |         |   Y  |   U  |   I  |   O  |   P  | Bksp |
-   * |------+------+------+------+------+------+         +------+------+------+------+------+------|
-   * |Ctl(TAB)| A  |   S  |   D  |   F  |   G  |         |   H  |   J  |   K  |   L  |   Ñ  |Ctl(´)|
-   * |------+------+------+------+------+------+         +------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |         |   N  |   M  |   ,  |   .  |   -  |Shift(ENT)|
-   * |------+------+------+------+------+------+         +------+------+------+------+------+------|
-   *                             | Alt  | Lower|Space Num| Raise| Win |
-   *                             +------------/          \-------------+
+   * ,----------------------------------------------+              +-----------------------------------------.
+   * | Esc       |   Q  |   W  |   E  |   R  |   T  |              |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * |-----------+------+------+------+------+------+              +------+------+------+------+------+------|
+   * |Ctl(TAB)   |   A  |   S  |   D  |   F  |   G  |              |   H  |   J  |   K  |   L  |   Ñ  |Ctl(´)|
+   * |-----------+------+------+------+------+------+              +------+------+------+------+------+------|
+   * | Shift-Caps|   Z  |   X  |   C  |   V  |   B  |              |   N  |   M  |   ,  |   .  |   -  |Shift |
+   * |-----------+------+------+------+------+------+              +------+------+------+------+------+------|
+   *                             | Alt  | Lower(ENT)|  Space Num   | Raise| Win  |
+   *                             +-----------------/               \-------------+
    */
   [_BASE] = LAYOUT_reviung41(
     KC_ESC,          KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     RCTL_T(KC_TAB),  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                      KC_H,     KC_J,     KC_K,     KC_L,     ES_NTIL,  RCTL_T(ES_ACUT),
-    KC_LSFT,         KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,                      KC_N,     KC_M,     ES_COMM,  ES_DOT,   ES_MINS,  RSFT_T(KC_ENT),
-                                                   KC_LALT,   MO(1),    LT(3, KC_SPC),    MO(2),    KC_LGUI
+    TD(TD_SHIFT_CAPS),         KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,                      KC_N,     KC_M,     ES_COMM,  ES_DOT,   ES_MINS,  KC_RSFT,
+                                                   KC_LALT,   LT(1, KC_ENT),    LT(3, KC_SPC),    MO(2),    KC_LGUI
   ),
 
   /* LOWER 1
@@ -95,10 +103,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                             +-------------/         \-------------+
   */
   [_NUM] = LAYOUT_reviung41(
-    XXXXXXX,     KC_1,     KC_2,     KC_3,     KC_4,      KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,  _______,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            KC_PPLS,     KC_4,     KC_5,     KC_6,  KC_PAST,  KC_PCMM,
+    _______,     KC_1,     KC_2,     KC_3,     KC_4,      KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,  _______,
+    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            KC_PPLS,     KC_4,     KC_5,     KC_6,  KC_PAST,  KC_PCMM,
     LOCK_OS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MUTE,   KC_PSCR,            KC_PMNS,     KC_1,     KC_2,     KC_3,  KC_PSLS,  KC_PENT,
-                                            XXXXXXX,   XXXXXXX,  XXXXXXX,     KC_0,  KC_PDOT
+                                            _______,   XXXXXXX,  _______,     KC_0,  KC_PDOT
   ),
 
 
